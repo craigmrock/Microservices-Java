@@ -1,0 +1,39 @@
+server:
+  port: 8100
+  
+spring:
+  application: 
+    name: GATEWAY-SERVICE
+  cloud:
+    gateway:
+      routes: 
+        - id: STAFF-SERVICE
+          uri: lb://STAFF-SERVICE
+          predicates: 
+            - Path=/staff/**
+        - id: DEPARTMENT-SERVICE
+          uri: lb://DEPARTMENT-SERVICE
+          predicates: 
+            - Path=/departments/**
+        - id: INVENTORY-SERVICE
+          uri: lb://INVENTORY-SERVICE
+          predicates: 
+            - Path=/inventory/**
+        - id: ACCOUNT-SERVICE
+          uri: lb://ACCOUNT-SERVICE
+          predicates: 
+            - Path=/accounts/**
+        - id: CUSTOMER-SERVICE
+          uri: lb://CUSTOMER-SERVICE
+          predicates: 
+            - Path=/customers/**
+  
+  
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    instance:
+      hostname: localhost
